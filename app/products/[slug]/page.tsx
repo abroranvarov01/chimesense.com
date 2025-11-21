@@ -265,17 +265,16 @@ const productsData = {
 }
 
 export default function ProductPage() {
-	const [selectedImage, setSelectedImage] = useState(0)
-	const [slug, setSlug] = useState<string>("")
+	const params = useParams<{ slug: string }>();
+	const [selectedImage, setSelectedImage] = useState(0);
+	const [slug, setSlug] = useState<string>("");
 
+	// Устанавливаем slug из params при монтировании или изменении params.slug
 	useEffect(() => {
-		const getSlug = async () => {
-			const params = useParams();
-			const slug = params.slug;
-			setSlug(slug)
+		if (params.slug) {
+			setSlug(params.slug);
 		}
-		getSlug()
-	}, [params])
+	}, [params.slug]);
 
 	if (!slug) {
 		return null
